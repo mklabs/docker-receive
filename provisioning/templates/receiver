@@ -1,29 +1,22 @@
 #!/bin/bash
 
 URL=http://requestb.in/11kvqg11
+
 OPT_USER=${OPT_USER:-git}
 TARGET_PATH=/home/$OPT_USER
-TARGET_APP=$TARGET_PATH/$1
-
-echo "----> Posting to $URL ..."
-curl \
-  -X 'POST' \
-  -F "repository=$1" \
-  -F "revision=$2" \
-  -F "username=$3" \
-  -F "fingerprint=$4" \
-  -F contents=@- \
-  --silent $URL
+APP_NAME=$(node -pe "'$1'.replace(/\.git$/, '').replace(/\//g, '-')")
+TARGET_APP=$TARGET_PATH/$APP_NAME
 
 echo "Creating app $TARGET_APP"
 mkdir -p $TARGET_APP && cat | tar -x -C $TARGET_APP
 
 [ -e $TARGET_APP/Dockerfile ] || exit 0
 
+DOCKER_APP=$APP_NAME:$2
+
 echo "Building docker image"
-docker build -t $1:$2 || exit 1
+echo docker build -t $DOCKER_APP || exit 1
+docker build -t $DOCKER_APP $TARGET_APP || exit 1
 
-
-echo "Running container $1:$2"
-docker run -d -P $1:$2
-
+echo "Running container $DOCKER_APP"
+docker run -d -P --name="$APP_NAME" $DOCKER_APP

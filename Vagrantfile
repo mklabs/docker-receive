@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "docker-opt" do |gs|
     gs.vm.box = "chef/centos-6.5"
-    gs.vm.hostname = "dockeropt.dev"
+    gs.vm.hostname = "dockerecv.dev"
 
     gs.vm.network :private_network, ip: "192.168.33.30"
     gs.vm.provision "shell", path: "provisioning/install.sh"

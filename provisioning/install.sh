@@ -14,8 +14,9 @@ curl https://raw.githubusercontent.com/progrium/gitreceive/master/gitreceive > /
 chmod +x /usr/bin/gitreceive
 
 # Git receive init
-gitreceive init
+[ -e /home/git ] || gitreceive init
 cat /vagrant/provisioning/templates/receiver > /home/git/receiver
+gpasswd -a git docker
 
 # Docker
 
