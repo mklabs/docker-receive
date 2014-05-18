@@ -5,7 +5,7 @@ git push docker container, build docker image, deploy them.
 > wip, learning docker
 
 This repo is essentially a [receiver](provisioning/templates/receiver)
-script to build out Docker images and container on top of [git receive]().
+script to build out Docker images and container on top of [git receive][gitreceive].
 
 ---
 
