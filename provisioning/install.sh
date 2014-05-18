@@ -6,13 +6,6 @@ DOCKER_NS=${DOCKER_NS:-$OPT_USER-docker}
 
 yum install git docker-io nodejs npm vim -y
 
-# adduser $OPT_USER -b /opt
-#
-# mkdir -p /opt/$OPT_USER/repos
-# mkdir -p /opt/$OPT_USER/scripts
-# mkdir -p /opt/$OPT_USER/apps
-# mkdir -p /opt/$OPT_USER/conf
-
 git config --global user.name "Server $OPT_USER"
 git config --global user.email "$OPT_USER@server.com"
 
@@ -22,6 +15,7 @@ chmod +x /usr/bin/gitreceive
 
 # Git receive init
 gitreceive init
+cat /vagrant/provisioning/templates/receiver > /home/git/receiver
 
 # Docker
 
